@@ -9,19 +9,22 @@ import java.time.LocalDate;
 
 @Data
 @Entity
-public class CreditCard {
+public class RequestOrders {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idCreditCard;
-    private String numberCard;
-    private String checkCode;
-    private String expirationDate;
+    private int idRequestOrders;
     private LocalDate createdAt;
     private LocalDate updatedAt;
 
     @JsonIgnore
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="id_user", insertable = false, updatable = false)
-    private Users user;
+    @JoinColumn(name="id_orders", insertable = false, updatable = false)
+    private Orders id_orders;
+
+    @JsonIgnore
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="id_request", insertable = false, updatable = false)
+    private Request id_request;
 }

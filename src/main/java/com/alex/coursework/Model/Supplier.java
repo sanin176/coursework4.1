@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Set;
 
 @Data
 @Entity
@@ -18,6 +19,6 @@ public class Supplier {
     private LocalDate createdAt;
     private LocalDate updatedAt;
 
-    @OneToOne(mappedBy = "supplier")
-    private Product product;
+    @OneToMany(mappedBy="id_supplier", fetch = FetchType.EAGER)
+    private Set<SupplierProdManu> idSupplierProdManu;
 }

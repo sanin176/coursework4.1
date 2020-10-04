@@ -12,6 +12,7 @@ public class Basket {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idBasket;
+    private int sizeBasket;
     private LocalDate createdAt;
     private LocalDate updatedAt;
 

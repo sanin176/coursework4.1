@@ -5,32 +5,31 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.sql.Time;
 import java.time.LocalDate;
 import java.util.Set;
 
 @Data
 @Entity
-public class Orders {
+public class OrdersProdManu {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idOrder;
-    private LocalDate orderDate;
-    private Time orderTime;
-    private String statusOrder;
-    private double orderCost;
-    private String paymentMethod;
-    private String obtainingMethod;
+    private int amount;
     private LocalDate createdAt;
     private LocalDate updatedAt;
 
     @JsonIgnore
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="id_manufacture", insertable = false, updatable = false)
-    private Manufacture id_manufacture;
+    @JoinColumn(name="id_orders", insertable = false, updatable = false)
+    private Orders id_orders;
+
+    @JsonIgnore
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="id_product_manufacture", insertable = false, updatable = false)
+    private ProductManufacture id_product_manufacture;
 
     @OneToMany(mappedBy="id_orders", fetch = FetchType.EAGER)
-    private Set<OrdersProdManu> orders;
-
+    private Set<RequestOrders> idRequestOrders;
 }

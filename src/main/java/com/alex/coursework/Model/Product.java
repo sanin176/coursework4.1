@@ -21,16 +21,9 @@ public class Product {
     private int width;
     private int height;
     private int warrantyMonth;
+    private ProductCategories productCategories;
     private LocalDate createdAt;
     private LocalDate updatedAt;
-
-    @ManyToMany(cascade = { CascadeType.ALL })
-    @JoinTable(
-            name = "Product_Category",
-            joinColumns = { @JoinColumn(name = "product_id") },
-            inverseJoinColumns = { @JoinColumn(name = "category_id") }
-    )
-    private Set<Categories> categories;
 
     @JsonIgnore
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
@@ -38,23 +31,10 @@ public class Product {
     @JoinColumn(name="id_basket", insertable = false, updatable = false)
     private Basket basket;
 
-    @ManyToMany(cascade = { CascadeType.ALL })
-    @JoinTable(
-            name = "Product_Order",
-            joinColumns = { @JoinColumn(name = "product_id") },
-            inverseJoinColumns = { @JoinColumn(name = "order_id") }
-    )
-    private Set<Orders> orders;
-
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="id_type_product")
     private TypeProduct typeProduct;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="id_manufacture")
-    private Manufacture manufacture;
-
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="id_supplier")
-    private Supplier supplier;
+    @OneToMany(mappedBy="id_product", fetch = FetchType.EAGER)
+    private Set<ProductManufacture> productManufactures;
 }

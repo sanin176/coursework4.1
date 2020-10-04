@@ -38,9 +38,8 @@ public class Users {
     @JoinColumn(name="id_role")
     private Role idRole;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="id_credit_card")
-    private CreditCard creditCard;
+    @OneToMany(mappedBy="user", fetch = FetchType.EAGER)
+    private Set<CreditCard> creditCard;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="id_basket")
